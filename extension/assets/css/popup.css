@@ -1,0 +1,48 @@
+body {
+  margin: 0;
+}
+
+#rc__wrapper {
+  width: 400px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+#rc__header {
+  text-align: center;
+}
+
+.rc__form {
+  display: flex;
+  align-items: center;
+  flex-direction: column-reverse;
+}
+
+.rc__input {
+  width: 100%;
+}
+
+.rc__check-list {
+  padding-top: 10px;
+}
+
+.rc__check-elem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid black;
+}
+
+.rc__check-text {
+  padding: 0 5px;
+  text-align: center;
+}
+
+.rc__button {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#rc__check {
+  width: 100%;
+}
