@@ -54,3 +54,7 @@ function sendMessage(text, inputValue) {
     chrome.runtime.sendMessage(message);
   }
 }
+
+chrome.storage.sync.set({
+  resumeLink: document.location.origin + document.location.pathname,
+});
