@@ -47,10 +47,10 @@ async function deleteElement(element) {
 push.addEventListener("click", async function (e) {
   const data = await getData("resumeData");
   const resumeLink = await getData("resumeLink");
-  // TODO: send a request to the server
-  console.log(apiKey.value);
-  console.log(data);
-  console.log(resumeLink);
+  await sendToServer(apiKey.value, data, resumeLink);
+  nodeList.remove();
+  apiKey.value = "";
+  await setData([]);
 });
 
 function createCustomElement(elemTag, classTag, text) {
@@ -58,6 +58,21 @@ function createCustomElement(elemTag, classTag, text) {
   customElem.classList.add(classTag);
   if (text) customElem.textContent = text;
   return customElem;
+}
+
+async function sendToServer(key, fields, link) {
+  console.log(key, fields, link);
+  const response = await fetch("http://localhost:5000/api/v1/resume", {
+    method: "POST",
+    body: JSON.stringify({
+      key: key,
+      fields: fields,
+      link: link,
+    }),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  });
 }
 
 initMain();
