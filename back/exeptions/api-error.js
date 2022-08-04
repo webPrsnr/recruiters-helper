@@ -6,7 +6,7 @@ module.exports = class ApiError extends Error {
   }
 
   static UnauthorizedError() {
-    return new AppiError(401, "The user is not logged in");
+    return new ApiError(401, "The user is not logged in");
   }
 
   static BadRequest(message, errors = []) {
