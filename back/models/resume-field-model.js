@@ -18,6 +18,7 @@ Field.init(
   {
     sequelize,
     modelName: "field",
+    timestamps: false,
   }
 );
 
