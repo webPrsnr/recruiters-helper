@@ -48,6 +48,12 @@ class UserService {
       ...tokens,
     };
   }
+
+  async logout(refreshToken) {
+    console.log("AAAAAAAAAAAAAAAAa", refreshToken);
+    const token = tokenService.removeToken(refreshToken);
+    return token;
+  }
 }
 
 module.exports = new UserService();

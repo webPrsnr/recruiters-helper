@@ -26,6 +26,13 @@ class TokenService {
     });
     return token;
   }
+
+  async removeToken(refreshToken) {
+    const tokenData = await tokenModel.destroy({
+      where: { refresh_token: refreshToken },
+    });
+    return tokenData;
+  }
 }
 
 module.exports = new TokenService();
