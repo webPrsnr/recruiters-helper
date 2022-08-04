@@ -27,6 +27,27 @@ class UserService {
       ...tokens,
     };
   }
+
+  async login(userLogin, userPassword) {
+    const candidate = await UserModel.findOne({ where: { login: userLogin } });
+    if (!candidate) {
+      throw ApiError.BadRequest(`User ${userLogin} does not exist`);
+    }
+
+    const isPassEquals = await bcrypt.compare(userPassword, candidate.password);
+    if (!isPassEquals) {
+      throw ApiError.BadRequest(`Invalid password`);
+    }
+    const userDto = new UserDto(candidate);
+    const tokens = tokenService.generateTokens({ ...userDto });
+
+    await tokenService.saveToken(userDto.api_key, tokens.refreshToken);
+
+    return {
+      user: userDto,
+      ...tokens,
+    };
+  }
 }
 
 module.exports = new UserService();
