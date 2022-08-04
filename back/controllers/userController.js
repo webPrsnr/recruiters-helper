@@ -1,7 +1,7 @@
 const userService = require("../services/userService");
 
 class UserController {
-  async registration(req, res, nex) {
+  async registration(req, res, next) {
     try {
       const { login, password } = req.body;
       const data = await userService.registration(login, password);
@@ -11,25 +11,33 @@ class UserController {
       });
       return res.json(data);
     } catch (error) {
-      console.log(error);
+      next(error);
     }
   }
-  async login(req, res, nex) {
+  async login(req, res, next) {
     try {
-    } catch (error) {}
+    } catch (error) {
+      next(error);
+    }
   }
-  async logout(req, res, nex) {
+  async logout(req, res, next) {
     try {
-    } catch (error) {}
+    } catch (error) {
+      next(error);
+    }
   }
-  async refresh(req, res, nex) {
+  async refresh(req, res, next) {
     try {
-    } catch (error) {}
+    } catch (error) {
+      next(error);
+    }
   }
-  async getAllCV(req, res, nex) {
+  async getAllCV(req, res, next) {
     try {
       res.json(["123"]);
-    } catch (error) {}
+    } catch (error) {
+      next(error);
+    }
   }
 }
 

@@ -3,12 +3,13 @@ const bcrypt = require("bcrypt");
 const UserModel = require("../models/user-model");
 const tokenService = require("./tokenService");
 const UserDto = require("../dto/user-dto");
+const ApiError = require("../exeptions/api-error");
 
 class UserService {
   async registration(userLogin, userPassword) {
     const candidate = await UserModel.findOne({ where: { login: userLogin } });
     if (candidate) {
-      throw new Error(`User ${userLogin} is exist`);
+      throw ApiError.BadRequest(`User ${userLogin} is exist`);
     }
     const apiKey = uuidv4();
     const hashPassword = await bcrypt.hash(userPassword, 3);
