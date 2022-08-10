@@ -11,8 +11,14 @@ class ResumeController {
   }
   async getAllResumes(req, res, next) {
     try {
-      res.json(["123", "456"]);
-    } catch (error) {}
+      const {
+        params: { apiKey },
+      } = req;
+      const resumes = await resumeService.getResumesById(apiKey);
+      res.json(resumes);
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 
