@@ -9,4 +9,6 @@ router.post("/resume", resumeController.createResume);
 //auth
 router.get("/resume/:apiKey", resumeController.getAllResumes);
 
+router.get("/resume/:apiKey/:resumId", resumeController.getResume);
+
 module.exports = router;

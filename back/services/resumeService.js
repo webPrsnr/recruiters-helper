@@ -18,6 +18,17 @@ class ResumeService {
     });
     return { resume };
   }
+  async getResumesById(key) {
+    const results = await ResumeModel.findAll({ where: { api_key: key } });
+    return { results };
+  }
+
+  async getResume(key, id) {
+    const results = await ResumeModel.findOne({
+      where: { api_key: key, resume_id: id },
+    });
+    return { results };
+  }
 }
 
 module.exports = new ResumeService();

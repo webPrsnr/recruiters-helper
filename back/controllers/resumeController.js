@@ -20,6 +20,18 @@ class ResumeController {
       console.log(error);
     }
   }
+
+  async getResume(req, res, next) {
+    try {
+      const {
+        params: { apiKey, resumId },
+      } = req;
+      const resume = await resumeService.getResume(apiKey, resumId);
+      res.json(resume);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 module.exports = new ResumeController();
