@@ -1,6 +1,5 @@
 const { v4: uuidv4 } = require("uuid");
 const ResumeModel = require("../models/resume-model");
-const fieldService = require("./fieldService");
 
 class ResumeService {
   async createNewResume(apiKey, resumFields, resumLink) {
@@ -15,9 +14,9 @@ class ResumeService {
       api_key: apiKey,
       resume_id: resumID,
       resume_link: resumLink,
+      resume_fields: resumFields,
     });
-    const fields = await fieldService.createFields(resumID, resumFields);
-    return { resume, fields };
+    return { resume };
   }
 }
 

@@ -14,6 +14,9 @@ Resume.init(
     resume_link: {
       type: DataTypes.STRING,
     },
+    resume_fields: {
+      type: DataTypes.JSON(),
+    },
   },
   {
     sequelize,
