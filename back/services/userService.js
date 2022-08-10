@@ -18,14 +18,9 @@ class UserService {
       password: hashPassword,
       api_key: apiKey,
     });
-    const userDto = new UserDto(newUser);
-    const tokens = tokenService.generateTokens({ ...userDto });
-    await tokenService.saveToken(userDto.api_key, tokens.refreshToken);
-
-    return {
-      user: userDto,
-      ...tokens,
-    };
+    const response = await this.saveToken(newUser);
+    console.log(response);
+    return response;
   }
 
   async login(userLogin, userPassword) {
@@ -38,15 +33,8 @@ class UserService {
     if (!isPassEquals) {
       throw ApiError.BadRequest(`Invalid password`);
     }
-    const userDto = new UserDto(candidate);
-    const tokens = tokenService.generateTokens({ ...userDto });
-
-    await tokenService.saveToken(userDto.api_key, tokens.refreshToken);
-
-    return {
-      user: userDto,
-      ...tokens,
-    };
+    const response = await this.saveToken(candidate);
+    return response;
   }
 
   async logout(refreshToken) {
@@ -67,6 +55,11 @@ class UserService {
     const candidate = await UserModel.findOne({
       where: { api_key: token.api_key },
     });
+    const response = await this.saveToken(candidate);
+    return response;
+  }
+
+  async saveToken(candidate) {
     const userDto = new UserDto(candidate);
     const tokens = tokenService.generateTokens({ ...userDto });
 
