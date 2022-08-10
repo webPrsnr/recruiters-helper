@@ -5,7 +5,6 @@ class UserController {
     try {
       const { login, password } = req.body;
       const data = await userService.registration(login, password);
-      console.log(data);
       res.cookie("refreshToken", data.refreshToken, {
         maxAge: 30 * 24 * 60 * 60 * 1000,
         httpOnly: true,
@@ -35,7 +34,6 @@ class UserController {
       res.clearCookie("refreshToken");
       return res.status(200).json({ message: "OK" });
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }
@@ -48,13 +46,6 @@ class UserController {
         httpOnly: true,
       });
       return res.json(data);
-    } catch (error) {
-      next(error);
-    }
-  }
-  async getAllCV(req, res, next) {
-    try {
-      res.json(["123"]);
     } catch (error) {
       next(error);
     }
