@@ -19,14 +19,10 @@ app.use("/api/v1", userRouter);
 
 app.use(errorMiddleware);
 
-const start = async () => {
-  try {
-    await sequelize.sync({ force: true });
-    console.log("DB is running");
+const start = () => {
+  sequelize.sync().then(() => {
     app.listen(PORT, () => console.log(`Server started on PORT = ${PORT}`));
-  } catch {
-    console.log(e);
-  }
+  });
 };
 
 start();
