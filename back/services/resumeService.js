@@ -34,10 +34,19 @@ class ResumeService {
   }
 
   async getResume(key, id) {
-    const results = await ResumeModel.findOne({
+    const user = await UserModel.findOne({
+      where: { api_key: key },
+    });
+    if (!user) {
+      throw ApiError.NotFound(`User's api key '${key}' does not exist`);
+    }
+    const resume = await ResumeModel.findOne({
       where: { api_key: key, resume_id: id },
     });
-    return { results };
+    if (!resume) {
+      throw ApiError.NotFound(`Resume's id '${id}' does not exist`);
+    }
+    return { resume };
   }
 
   async deleteResume(key, id) {

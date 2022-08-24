@@ -29,7 +29,7 @@ class ResumeController {
       const resume = await resumeService.getResume(apiKey, resumId);
       res.json(resume);
     } catch (error) {
-      console.log(error);
+      next(error);
     }
   }
 
