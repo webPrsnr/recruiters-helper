@@ -17,7 +17,7 @@ class ResumeController {
       const resumes = await resumeService.getResumesById(apiKey);
       res.json(resumes);
     } catch (error) {
-      console.log(error);
+      next(error);
     }
   }
 

@@ -21,6 +21,14 @@ class ResumeService {
     return { resume };
   }
   async getResumesById(key) {
+    const user = await UserModel.findOne({
+      where: {
+        api_key: key,
+      },
+    });
+    if (!user) {
+      throw ApiError.NotFound(`User's api key '${key}' does not exist`);
+    }
     const results = await ResumeModel.findAll({ where: { api_key: key } });
     return { results };
   }
