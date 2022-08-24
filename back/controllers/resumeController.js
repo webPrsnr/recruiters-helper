@@ -32,6 +32,18 @@ class ResumeController {
       console.log(error);
     }
   }
+
+  async deleteResume(req, res, next) {
+    try {
+      const {
+        params: { apiKey, resumId },
+      } = req;
+      const deleteFlag = await resumeService.deleteResume(apiKey, resumId);
+      if (deleteFlag) return res.status(200).json({ message: "OK" });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new ResumeController();

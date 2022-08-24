@@ -1,5 +1,7 @@
 const { v4: uuidv4 } = require("uuid");
+const ApiError = require("../exeptions/api-error");
 const ResumeModel = require("../models/resume-model");
+const UserModel = require("../models/user-model");
 
 class ResumeService {
   async createNewResume(apiKey, resumFields, resumLink) {
@@ -28,6 +30,27 @@ class ResumeService {
       where: { api_key: key, resume_id: id },
     });
     return { results };
+  }
+
+  async deleteResume(key, id) {
+    const user = await UserModel.findOne({
+      where: { api_key: key },
+    });
+    if (!user) {
+      throw ApiError.NotFound(`User's api key '${key}' does not exist`);
+    }
+    const resume = await ResumeModel.findOne({
+      where: { api_key: key, resume_id: id },
+    });
+    if (!resume) {
+      throw ApiError.NotFound(`Resume's id '${id}' does not exist`);
+    }
+    const res = await ResumeModel.destroy({
+      where: { api_key: key, resume_id: id },
+    });
+    if (res) {
+      return true;
+    }
   }
 }
 

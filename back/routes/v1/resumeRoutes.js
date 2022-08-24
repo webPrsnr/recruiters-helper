@@ -11,4 +11,6 @@ router.get("/resume/:apiKey", resumeController.getAllResumes);
 
 router.get("/resume/:apiKey/:resumId", resumeController.getResume);
 
+router.delete("/resume/:apiKey/:resumId", resumeController.deleteResume);
+
 module.exports = router;
